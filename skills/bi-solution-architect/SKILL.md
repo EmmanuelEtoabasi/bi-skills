@@ -20,13 +20,13 @@ When this skill is invoked:
    * **Path Selection**: Prompt the user to select one of the following two deployment pathways:
      * **Path A: Bottom-Up (Operational → Analytical → Strategic)**: Focus on daily pipelines, staging POS/logistics tracking first, then scaling to analytical insight and long-term planning.
      * **Path B: Top-Down (Strategic → Operational → Analytical)**: Focus on corporate board objectives first, then aligning daily operations and analytical models.
-   * **Problem Discovery**: If the user has not explicitly defined specific business problems/use cases, the agent must perform a deep-dive analysis of the index business model and select a **minimum of 3 highly relevant business problems** that span all three layers (Operational, Analytical, Strategic) and have simulated data markers for high-impact BI adoption.
-   * **Interactive User Gate**: Halt execution and present the detailed 3 problems to the user. Prompt the user for approval, edits, or alternatives.
-   * **Initialize Registry**: Once the user approves, write the selected path, completion statuses, and the 3 detailed multi-horizon problems into `docs/agent_docs/architecture_docs/path-definition.md`.
+   * **Problem Discovery**: If the user has not explicitly defined specific business problems/use cases, invoke the **`bi-problem-formulator`** skill under the hood. This skill uses an interactive 6-tier process (3 foundation → 1 compound → 1 near-future → 1 long-term) to generate exactly **6 adoption-optimized business problems** with simulated data markers, layer decomposition, and cross-horizon traceability. Each tier is presented to the user interactively for critique and approval.
+   * **Interactive User Gate**: The `bi-problem-formulator` handles per-tier user approval internally. Once all 6 problems are locked, it returns the complete output (Problem Registry, Data Infrastructure Map, Layer Decomposition Table, and Analytics Maturity Staircase) to this skill.
+   * **Initialize Registry**: Once the formulator output is received, write the selected path, completion statuses, and the 6 detailed multi-horizon problems into `docs/agent_docs/architecture_docs/path-definition.md`.
 3. **If a prior build EXISTS**:
-   * Read the path selection, completion status, and the 3 multi-horizon problems from `path-definition.md`.
+   * Read the path selection, completion status, and the 6 multi-horizon problems from `path-definition.md`.
    * Prompt the user with a suggestion to continue the sequence of the previously chosen path (e.g. "Proceeding with the **Analytical** build next to define diagnostic models for the 3 registered problems").
-   * Ensure that the current build focuses on the target horizon's component of the registered 3 problems.
+   * Ensure that the current build focuses on the target horizon's component of the registered 6 problems.
 
 ---
 
