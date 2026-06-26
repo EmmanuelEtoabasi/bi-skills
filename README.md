@@ -12,11 +12,12 @@ To install skills from this suite directly into your AI agent workspace, run:
 npx skills@latest add EmmanuelEtoabasi/bi-skills
 ```
 
-Running this command will scan the repository and present you with an interactive selection list where you can select one or both skills to install:
+Running this command will scan the repository and present you with an interactive selection list where you can select one or more skills to install:
 
 ```text
 ? Select skills to install:
 ❯ [ ] bi-prompt-builder - Conversational onboarding wizard...
+  [ ] bi-problem-formulator - Generate exactly 6 adoption-optimized...
   [ ] bi-solution-architect - Transform business context...
 ```
 
@@ -25,21 +26,27 @@ Running this command will scan the repository and present you with an interactiv
 ## 🧩 Included Skills
 
 ### 1. `bi-prompt-builder`
-An interactive onboarding wizard that interviews users step-by-step to gather context about their business profile, operating model, data infrastructure, and adoption targets. It outputs a fully constructed structural prompt for the Solution Architect.
+An interactive onboarding wizard that interviews users step-by-step to gather context about their business profile, operating model, data infrastructure, and adoption targets. It outputs a fully constructed structural prompt for downstream skills.
 - **Key Files**: `SKILL.md`, `DEFAULTS.md`
 - **Recommended use**: Run this first when starting a new workspace design to generate rich, industry-specific configurations without manual drafting.
 
-### 2. `bi-solution-architect`
-A path-based agentic designer that translates a business context prompt into a complete multi-horizon analytics architecture across 13 design phases and 5 parallel gates.
+### 2. `bi-problem-formulator`
+An analytical formulator that generates exactly 6 adoption-optimized, multi-horizon business problems structured in a 4-tier hierarchy. Evaluates each problem against a strict daily-usage and readiness rubric.
+- **Key Files**: `SKILL.md`, `FRAMEWORK.md`, `OUTPUT-TEMPLATE.md`, `EXAMPLES.md`
+- **Recommended use**: Use this to structure key business focus areas between context gathering and architectural design.
+
+### 3. `bi-solution-architect`
+A path-based agentic designer that translates a business context prompt and business problems into a complete multi-horizon analytics architecture across 13 design phases and 5 parallel gates.
 - **Key Files**: `SKILL.md`, `AGENTS.md`, `PHASES.md`, `TEMPLATES.md`, `TRACEABILITY.md`, `VISUALIZATION-GUIDE.md`
-- **Recommended use**: Run this next to generate 15 detailed architectural files across your chosen decision horizon (**Strategic**, **Operational**, or **Analytical**).
+- **Recommended use**: Run this to generate 15 detailed architectural files across your chosen decision horizon (**Strategic**, **Operational**, or **Analytical**).
 
 ---
 
 ## 🧠 Usage Workflow
 
-For the most cohesive results, we recommend using both skills sequentially:
+For the most cohesive results, we recommend using these skills sequentially:
 
-1. **Step 1 (Prompt Builder)**: Invoke `bi-prompt-builder` to run through the 5-step conversational profile wizard and generate your structured context prompt.
-2. **Step 2 (Horizon Architecture)**: Copy the generated prompt output and supply it as input to `bi-solution-architect`.
-3. **Step 3 (Deployment)**: Follow the suggested sequence (Path A for Bottom-Up, Path B for Top-Down) and construct each decision horizon one at a time.
+1. **Step 1 (Prompt Builder)**: Invoke `bi-prompt-builder` to run through the 5-step conversational profile wizard and generate your structured context profile.
+2. **Step 2 (Problem Formulation)**: Pass the profile into `bi-problem-formulator` to generate exactly 6 highly prioritized business problems structured for maximum user adoption.
+3. **Step 3 (Horizon Architecture)**: Supply the formulated profile and problems to `bi-solution-architect` to build the comprehensive analytics architecture gate by gate.
+
