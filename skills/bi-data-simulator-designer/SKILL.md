@@ -19,13 +19,18 @@ Output: `16-data-simulation-specification.md` containing date ranges, inflection
 
 ## Core Rules
 
-1. **Date Range Mapping**: Establishes target start and end dates aligned with decision horizons (Strategic: 3+ years, Analytical: 1+ year, Operational: 3 months).
+1. **Uniform Temporal Bounds**: All generated tables MUST share identical start and end dates. The range is dictated by the longest horizon required in the path (e.g., if a Strategic horizon is planned, all tables must span 3–5 years). Staggered ranges are prohibited as they violate referential integrity when joining historical transactional tables.
 2. **Inflection Point Injection**: Specifies the exact timestamps or cycles where anomalies, seasonal shifts, or operational failures occur, matching the storylines in the Executive Narratives.
 3. **Layer Alignment**:
    - *Operational*: Daily noise, sensor bounds, and outlier spikes to trigger alerting systems.
    - *Analytical*: Explanatory trends, multi-variable correlations (e.g. weather driving sales), and regression relationships.
    - *Strategic*: Long-term growth cycles, baseline drift, and policy step-functions.
 4. **Traceability**: Every simulation rule must reference the corresponding problem ID (`UC-CAN-xx`) and data source (`DA-xx`).
+
+## Verification & QA Checklist
+
+- [ ] Do all simulated transactional tables share the exact same start and end dates?
+- [ ] Are all step-functions ($\mathbb{I}$) and spikes mapped to absolute calendar dates rather than relative day offsets?
 
 ## Reference Files
 

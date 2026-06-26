@@ -4,17 +4,11 @@ This document outlines the rules, mathematical models, and techniques required t
 
 ---
 
-## 1. Decision Horizon & Date Range Rules
+## 1. Temporal Boundary & Date Range Rules
 
-To represent the reality of a multi-tiered BI architecture, simulated datasets must span different time ranges and frequencies depending on the target decision horizon:
+To represent the reality of a multi-tiered BI architecture, all simulated data tables must share a single uniform timeline. Staggered date ranges are prohibited because they break referential integrity (e.g., when trying to join historical transactional data with customer cohorts or financial records).
 
-| Horizon | Date Range | Frequency | Primary Purpose |
-| :--- | :--- | :--- | :--- |
-| **Strategic** | 3 to 5 Years | Monthly/Quarterly | Trend forecasting, seasonal adjustments, and long-term capacity/capital planning. |
-| **Analytical** | 1 to 2 Years | Daily/Weekly | Root-cause analysis, regression modeling, and customer/product correlation discovery. |
-| **Operational** | 3 Months | Transactional/Hourly | Real-time monitoring, threshold exception triggers, and daily SLA monitors. |
-
-*Rule*: All generated data must share a consistent final timestamp (e.g. matching the current date of the simulation) so that dashboards do not appear stale.
+*Rule*: Always generate data using a single timeline spanning the maximum duration required in the deployment path (e.g., if a Strategic horizon is planned, all tables must span 3–5 years). The record frequency can vary (e.g., hourly for sales, daily for invoices, monthly for inventory audits), but the boundaries `start_date` and `end_date` must remain uniform across all assets.
 
 ---
 
@@ -22,23 +16,23 @@ To represent the reality of a multi-tiered BI architecture, simulated datasets m
 
 Points of inflection are deliberate anomalies, trends, or structural breaks injected into the data to represent the business "story" described in the narratives. 
 
-Every problem registry must define at least two inflection points:
+Every problem registry must define at least two inflection points using absolute calendar dates rather than relative day indices. This ensures direct convertibility into SQL logic (e.g., DuckDB `CASE` statements).
 
 1.  **Structural Breaks (Step Functions)**:
     *   *Concept*: A sudden, permanent shift in the baseline level of a variable.
-    *   *Mathematical Spec*: $Y_t = Y_{base} + \Delta Y \cdot \mathbb{I}(t \ge T_{break})$, where $\mathbb{I}$ is the indicator function.
+    *   *Mathematical Spec*: $Y_{\text{Date}} = Y_{base} + \Delta Y \cdot \mathbb{I}(\text{Date} \ge \text{'YYYY-MM-DD'})$, where $\mathbb{I}$ is the indicator function.
     *   *Use Case*: Simulating tariff hikes, renegotiated PPA rates, or a new competitor entering a region.
 2.  **Cyclical & Seasonal Factors**:
     *   *Concept*: Periodic fluctuations based on season, week, or hour.
-    *   *Mathematical Spec*: $S_t = A \sin\left(\frac{2\pi t}{P} + \phi\right)$, where $P$ is the period (e.g. $P=12$ for monthly, $P=24$ for hourly) and $A$ is the amplitude.
-    *   *Use Case*: Weather-based solar irradiance yields (low in wet season, high in dry season), or intraday lighting sales peaks.
+    *   *Mathematical Spec*: $S_{\text{Date}} = A \sin\left(\frac{2\pi \cdot f(\text{Date})}{P} + \phi\right)$, where $f(\text{Date})$ extracts cyclical calendar metrics (e.g. month-of-year, hour-of-day), $P$ is the period (e.g. $P=12$ for monthly, $P=24$ for hourly), and $A$ is the amplitude.
+    *   *Use Case*: Weather-based solar irradiance yields, or intraday lighting sales peaks.
 3.  **Anomalies & Spikes (Outliers)**:
     *   *Concept*: A short-term, extreme deviation from the normal distribution.
-    *   *Mathematical Spec*: $Y_{inflection} = Y_base + \text{Noise} \pm k \cdot \sigma$, at specific timestamps $t \in \{T_{anomaly}\}$.
+    *   *Mathematical Spec*: $Y_{inflection} = Y_{base} + \text{Noise} \pm k \cdot \sigma$, at specific calendar dates/timestamps $\text{Date} \in \{\text{'YYYY-MM-DD'}\}$.
     *   *Use Case*: Grid shut-ins, equipment breakdowns, sudden project delays, or supplier defaults.
 4.  **Gradual Drift (Trends & Degradation)**:
     *   *Concept*: A slow, long-term increase or decrease in a baseline variable.
-    *   *Mathematical Spec*: $T_t = T_0 - \beta \cdot t$, where $\beta$ represents the degradation rate per time unit.
+    *   *Mathematical Spec*: $T_{\text{Date}} = T_0 - \beta \cdot \text{DaysBetween}(\text{start\_date}, \text{Date})$, where $\beta$ represents the degradation rate per day.
     *   *Use Case*: Solar panel output efficiency loss, battery capacity degradation, or customer satisfaction drift.
 
 ---

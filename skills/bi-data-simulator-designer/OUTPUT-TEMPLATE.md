@@ -66,11 +66,12 @@ The table below maps how the 6 registered business problems are baked into the d
     *   **Analytical**: <!-- variables to correlate, target coefficient, regression shifts -->
     *   **Strategic**: <!-- long-term baseline drift, step function adjustments, yearly impact -->
 *   **Mathematical Simulation Formula**:
-    $$Y_t = \text{Base} + T_t + S_t + \text{Inflection}_t + \epsilon_t$$
-    *   Where $\epsilon_t \sim N(0, \sigma^2)$
-    *   Trend ($T_t$): <!-- formula -->
-    *   Seasonality ($S_t$): <!-- formula -->
-    *   Inflection ($\text{Inflection}_t$): <!-- formula -->
+    $$\text{Metric}_{\text{Date}} = \text{Base} + T_{\text{Date}} + S_{\text{Date}} + \text{Inflection}_{\text{Date}} + \epsilon_{\text{Date}}$$
+    *   Where $\epsilon_{\text{Date}} \sim N(\mu, \sigma^2)$
+    *   All functions ($T_{\text{Date}}$, $S_{\text{Date}}$, and $\text{Inflection}_{\text{Date}}$) must use explicit calendar dates or day-of-week functions, ensuring immediate convertibility into SQL logic.
+    *   Trend ($T_{\text{Date}}$): <!-- formula -->
+    *   Seasonality ($S_{\text{Date}}$): <!-- formula -->
+    *   Inflection ($\text{Inflection}_{\text{Date}}$): <!-- formula -->
 *   **Generator Implementation Rules**:
     1.  <!-- specific rule for python generator (e.g. seed, distributions, bounds) -->
     2.  <!-- specific rule for handling dependencies on other tables -->

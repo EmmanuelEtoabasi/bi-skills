@@ -24,24 +24,22 @@ A solar farm operator uses battery storage to arbitrage energy in the spot marke
 *   **Layer-by-Layer Spec**:
     *   **Operational**: Hourly temperature logs (`cell_temperature_c`) and state-of-charge (`soc_pct`). Generate daily out-of-bounds alerts when `soc_pct` drops below 15% during peak discharge windows (4:00 PM – 7:00 PM).
     *   **Analytical**: Regression modeling. Capacity decay rate correlates with charge cycles and ambient temperature:
-        $$\text{Decay Rate } d_t = d_{\text{base}} \cdot \left(1 + \gamma \cdot \text{cell\_temp\_c}\right)$$
+        $$\text{Decay Rate}_{\text{Date}} = d_{\text{base}} \cdot \left(1 + \gamma \cdot \text{cell\_temp\_c}_{\text{Date}}\right)$$
     *   **Strategic**: 3-year capacity degradation curve showing a $4.5\%$ annual output loss rolled up to monthly averages, with a step-function break on cell swap date.
 
 *   **Mathematical Simulation Formula**:
-    For $t \in [0, 1095]$ days (representing 3 years, starting `2023-06-01`):
+    For $\text{Date} \in [\text{'2023-06-01'}, \text{'2026-06-08'}]$:
 
-    $$\text{Capacity}_t = C_0 \cdot \prod_{i=1}^t (1 - d_i) + \Delta C \cdot \mathbb{I}(t \ge T_{\text{swap}}) - \Delta C_{\text{strike}} \cdot \mathbb{I}(t \ge T_{\text{strike}}) + \epsilon_t$$
+    $$\text{Capacity}_{\text{Date}} = C_0 \cdot (1 - \text{Decay Rate})^{\text{DaysBetween}(\text{'2023-06-01'}, \text{Date})} + \Delta C \cdot \mathbb{I}(\text{Date} \ge \text{'2025-03-10'}) - \Delta C_{\text{strike}} \cdot \mathbb{I}(\text{Date} = \text{'2024-08-15'}) + \epsilon_{\text{Date}}$$
 
     *   Where:
         *   $C_0 = 1000.0$ Ah (initial capacity)
-        *   $d_i = \text{Daily Degradation Rate} = 0.00012$ (approx 4.5% annually)
+        *   $\text{Decay Rate} = 0.00012$ (approx 4.5% annually)
         *   $\Delta C = +250.0$ Ah (structural break cell restoration)
-        *   $T_{\text{swap}} = 648$ (Day 648: `2025-03-10`)
-        *   $\Delta C_{\text{strike}} = 80.0$ Ah (lightning strike damage)
-        *   $T_{\text{strike}} = 441$ (Day 441: `2024-08-15`)
-        *   $\epsilon_t \sim N(0, 1.5^2)$ (daily measurement noise)
+        *   $\Delta C_{\text{strike}} = 80.0$ Ah (lightning strike damage anomaly)
+        *   $\epsilon_{\text{Date}} \sim N(0, 1.5^2)$ (daily measurement noise)
 
 *   **Generator Implementation Rules**:
     1.  **Seed Lock**: Ensure `numpy.random.seed(42)` is set at the start of the script to guarantee consistent daily noise across runs.
-    2.  **Date Alignment**: Parse the timestamps using a relative delta from `2023-06-01` to map day index $t$ directly to calendar dates.
-    3.  **Out-of-Bounds Trigger**: On Day 441 ( lightning strike), instantly force `discharge_rate_c` to spikes above `1.8` for a 4-hour window to trigger the operational exception logs.
+    2.  **Uniform Date Filter**: Generate all tables (inventory, SCADA logs, PPA billing) to share the exact same start (`2023-06-01`) and end (`2026-06-08`) dates.
+    3.  **Out-of-Bounds Trigger**: On `2024-08-15` (lightning strike), instantly force `discharge_rate_c` to spikes above `1.8` for a 4-hour window to trigger the operational exception logs.
