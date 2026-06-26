@@ -18,6 +18,7 @@ Running this command will scan the repository and present you with an interactiv
 ? Select skills to install:
 ❯ [ ] bi-prompt-builder - Conversational onboarding wizard...
   [ ] bi-problem-formulator - Generate exactly 6 adoption-optimized...
+  [ ] bi-data-simulator-designer - Design data simulation specs...
   [ ] bi-solution-architect - Transform business context...
 ```
 
@@ -35,7 +36,12 @@ An analytical formulator that generates exactly 6 adoption-optimized, multi-hori
 - **Key Files**: `SKILL.md`, `FRAMEWORK.md`, `OUTPUT-TEMPLATE.md`, `EXAMPLES.md`
 - **Recommended use**: Use this to structure key business focus areas between context gathering and architectural design.
 
-### 3. `bi-solution-architect`
+### 3. `bi-data-simulator-designer`
+A simulator designer that designs structured data simulation rules, math formulations, date ranges, and inflection points representing business anomalies, seasonal trends, and operational failures.
+- **Key Files**: `SKILL.md`, `FRAMEWORK.md`, `OUTPUT-TEMPLATE.md`, `EXAMPLES.md`
+- **Recommended use**: Use this to map out simulated datasets and target schemas so downstream analytics engines and dashboards have reliable mock data metrics.
+
+### 4. `bi-solution-architect`
 A path-based agentic designer that translates a business context prompt and business problems into a complete multi-horizon analytics architecture across 13 design phases and 5 parallel gates.
 - **Key Files**: `SKILL.md`, `AGENTS.md`, `PHASES.md`, `TEMPLATES.md`, `TRACEABILITY.md`, `VISUALIZATION-GUIDE.md`
 - **Recommended use**: Run this to generate 15 detailed architectural files across your chosen decision horizon (**Strategic**, **Operational**, or **Analytical**).
@@ -48,5 +54,7 @@ For the most cohesive results, we recommend using these skills sequentially:
 
 1. **Step 1 (Prompt Builder)**: Invoke `bi-prompt-builder` to run through the 5-step conversational profile wizard and generate your structured context profile.
 2. **Step 2 (Problem Formulation)**: Pass the profile into `bi-problem-formulator` to generate exactly 6 highly prioritized business problems structured for maximum user adoption.
-3. **Step 3 (Horizon Architecture)**: Supply the formulated profile and problems to `bi-solution-architect` to build the comprehensive analytics architecture gate by gate.
+3. **Step 3 (Data Simulation Design)**: Use `bi-data-simulator-designer` to compile mock data generation specs, date ranges, and mathematical inflection formulas based on the problems and tech stack.
+4. **Step 4 (Horizon Architecture)**: Supply the formulated profile, problems, and simulation rules to `bi-solution-architect` to build the comprehensive analytics architecture gate by gate.
+
 

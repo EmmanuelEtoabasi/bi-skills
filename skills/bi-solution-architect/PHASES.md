@@ -84,6 +84,16 @@ Every phase specifies how the inputs, responsibilities, and outputs adapt based 
 *   **Objective**: Map analytical outputs to priority recommendation matrices and automated text insights.
 *   **Outputs**: `09-intelligence-layer-architecture.md`.
 
+### Phase 8B: Data Simulation Design
+*   **Objective**: Synthesize data schemas, date ranges, inflection points, and math requirements into a single data generation specification.
+*   **Responsibilities**:
+    *   Invoke the **`bi-data-simulator-designer`** skill under the hood to write the data simulation specification.
+    *   Consume all prior deliverables (`01` through `09` and `path-definition.md`).
+    *   Map out target date ranges and record frequencies matching the target horizon (Strategic: 3+ years, Analytical: 1+ year, Operational: 3 months).
+    *   Inject specific **Points of Inflection** (anomalies, spikes, structural breaks) that match the qualitative storylines in `03-executive-narrative-library.md`.
+    *   Define generation rules and mathematical formulas (e.g. noise distributions, sine waves) that produce data within the bounds required by the KPI catalogue (`07-analytics-foundation-architecture.md`) and the analytics engines (`08-analytics-engine-architecture.md`).
+*   **Outputs**: `16-data-simulation-specification.md`.
+
 ---
 
 ## Gate 4: Frontend Design (Parallel)

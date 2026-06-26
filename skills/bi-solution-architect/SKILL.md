@@ -32,7 +32,7 @@ When this skill is invoked:
 
 ## Output Subdirectories
 
-Each build is focused entirely on its own horizon and saves its 15 architectural deliverables in its own subdirectory inside `docs/agent_docs/architecture_docs/`:
+Each build is focused entirely on its own horizon and saves its 16 architectural deliverables in its own subdirectory inside `docs/agent_docs/architecture_docs/` (including 16-data-simulation-specification.md):
 * `docs/agent_docs/architecture_docs/operational/` (Daily monitoring, KPIs, exception alert rules)
 * `docs/agent_docs/architecture_docs/analytical/` (Data investigations, regressions, clustering, root-cause rules)
 * `docs/agent_docs/architecture_docs/strategic/` (Long-term business value, forecasts, portfolio prioritization)
@@ -63,6 +63,7 @@ To speed up generation, the 13 design phases are grouped into **5 Parallelizatio
                   │   - Phase 6: KPI Catalogue             │
                   │   - Phase 7: Analytics Engine Design   │
                   │   - Phase 8: Intelligence Layer Design │
+                  │   - Phase 8B: Data Simulation Design   │
                   └───────────────────┬────────────────────┘
                                       │
                    ┌──────────────────┴──────────────────┐

@@ -269,3 +269,42 @@ Use these suffix markers consistently across every deliverable to maintain cross
 ## Business Storytelling
 <!-- Before vs. After transition story, executive ROI case, change management, and quick wins. -->
 ```
+
+---
+
+## 16. Data Simulation Specification
+**Filename:** `16-data-simulation-specification.md`
+```markdown
+# Data Simulation Specification
+
+## 1. Simulation Context & Scope
+<!-- Detail company name, target data range, and record frequency configurations. -->
+
+## 2. Date Range & Frequency Configurations
+| Data Entity (DA-) | Source System | Date Range (Start → End) | Record Frequency | Target Row Count |
+|-------------------|---------------|--------------------------|------------------|------------------|
+
+## 3. Relational Schema & Key Mapping
+<!-- Include Mermaid diagrams showing join keys and database schemas. -->
+
+## 4. Problem Nuance & Inflection Map
+| Problem ID | Problem Title | Affected Tables | Operational Layer (Spikes/Limits) | Analytical Layer (Correlations) | Strategic Layer (Trends/Breaks) |
+|------------|---------------|-----------------|-----------------------------------|---------------------------------|---------------------------------|
+
+## 5. Detailed Problem Specifications
+<!-- Repeat for each of the 6 registered problems. Detail the target inflection timestamps, math formulas, and python generator rules. -->
+
+### UC-00x: [Problem Title]
+*   **Story Narrative Link**: [NR-xxxx]
+*   **Target Inflection Timestamp(s)**: YYYY-MM-DD to YYYY-MM-DD
+*   **Layer Spec**: Operational / Analytical / Strategic
+*   **Mathematical Formula**:
+    $$Y_t = \text{Base} + T_t + S_t + \text{Inflection}_t + \epsilon_t$$
+*   **Generator Implementation Rules**:
+    1.
+    2.
+
+## 6. Traceability Matrix
+| Problem ID (UC-) | Data Source (DA-) | Simulated Variable | KPI Supported (KPI-) | Analytics Engine (ENG-) |
+|------------------|-------------------|--------------------|----------------------|-------------------------|
+```

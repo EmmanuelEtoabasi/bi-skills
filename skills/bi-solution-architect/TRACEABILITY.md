@@ -38,7 +38,7 @@ The Quality Assurance Agent runs this checklist at the end of each Parallelizati
 - [ ] All elements (objectives, KPIs, engines, visuals) are strictly tagged with their matching suffix (`-STR-`, `-OP-`, or `-ANA-`).
 
 ### 2. Traceability Alignment
-- [ ] Every deliverable (KPI, engine, narrative, visual) traces back to at least one of the 3 multi-horizon problems registered in `path-definition.md`.
+- [ ] Every deliverable (KPI, engine, narrative, visual) traces back to at least one of the 6 multi-horizon problems registered in `path-definition.md`.
 - [ ] Every KPI has a valid formula and traces back to a data source (`DA-`) and objective (`BC-`).
 - [ ] Every analytical engine (`ENG-`) consumes at least one KPI and supports a documented decision area.
 - [ ] Every visualization (`VIZ-`) maps to a deliverable (`DEL-`) and chart type appropriate to the chosen horizon (KPI Cards for Strategic, Alert Cards for Operational, Scatter/Decomposition for Analytical).
@@ -46,4 +46,5 @@ The Quality Assurance Agent runs this checklist at the end of each Parallelizati
 ### 3. Cross-Horizon Integration & Simulation Prep
 - [ ] If a prior build exists, the current traceability matrix contains at least one active connection mapping inputs/outputs between the folders.
 - [ ] The simulated data markers (fields, variances) declared in `path-definition.md` are correctly mapped as source attributes in `04-data-asset-inventory.md` and referenced in calculation formulas in `07-analytics-foundation-architecture.md`.
-- [ ] The `path-definition.md` file is complete, accurately lists the statuses of all completed and active directories, and maintains the consistent 3 problems.
+- [ ] The data simulation specification (`16-data-simulation-specification.md`) exists (for Gate 3 builds), maps all 6 problems with mathematical formulas, and traces fields back to data assets and KPIs.
+- [ ] The `path-definition.md` file is complete, accurately lists the statuses of all completed and active directories, and maintains the consistent 6 problems.

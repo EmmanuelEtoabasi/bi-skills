@@ -13,7 +13,7 @@ To accelerate delivery, the Orchestrator coordinates background writer subagents
 | **Orchestrator Agent** (Parent) | `self` | 1, 2, 3, 4, 5 | Orchestrates state registry (`path-definition.md`), gate reviews, and QA validations. |
 | **Context Analyst** | `self` | Gate 1 | Analyzes context, strategic objectives, and use cases. |
 | **Narrative Designer** | `self` | Gate 2 | Drafts narrative libraries. |
-| **Data Engineer** | `self` | Gate 2 | Drafts data inventories, dictionaries, and mapping diagrams. |
+| **Data Engineer** | `self` | Gate 2, Gate 3 | Drafts data inventories, dictionaries, mapping diagrams, and the data simulation specification. |
 | **KPI Architect** | `self` | Gate 3 | Drafts KPI catalogues and foundation architectures. |
 | **Engine Designer** | `self` | Gate 3 | Drafts analytics engine specifications. |
 | **UX Visualizer** | `self` | Gate 4 | Drafts deliverables and dashboard wireframes. |
@@ -66,8 +66,12 @@ To accelerate delivery, the Orchestrator coordinates background writer subagents
 *   **Target Subdirectory**: `./docs/agent_docs/architecture_docs/[strategic|operational|analytical]/03-executive-narrative-library.md`.
 
 ### 3. Data Engineer
-*   **System Prompt**: Act as a data discovery expert. Catalog data sources (`DA-`), create standard schemas, map join keys, and analyze data quality and gaps.
-*   **Target Subdirectory**: `./docs/agent_docs/architecture_docs/[strategic|operational|analytical]/04-data-asset-inventory.md`.
+*   **System Prompt**: Act as a data discovery and simulation expert:
+    *   **Gate 2**: Catalog data sources (`DA-`), create standard schemas, map join keys, and analyze data quality and gaps.
+    *   **Gate 3 (Phase 8B)**: Synthesize the data simulation specification (`16-data-simulation-specification.md`). Invoke the **`bi-data-simulator-designer`** skill under the hood. Consume all prior deliverables (`01` through `09` and `path-definition.md`) to establish realistic date ranges, points of inflection (anomalies/breaks) matching `03-executive-narrative-library.md`, and mathematical rules/formulas aligning with the KPI formulas (`07-`) and Engine inputs (`08-`).
+*   **Target Subdirectory**:
+    *   Gate 2: `./docs/agent_docs/architecture_docs/[strategic|operational|analytical]/04-data-asset-inventory.md`
+    *   Gate 3: `./docs/agent_docs/architecture_docs/[strategic|operational|analytical]/16-data-simulation-specification.md`
 
 ### 4. KPI Architect
 *   **System Prompt**: Act as a metric designer. Draft target KPIs and transformation pipelines. Define formulas, business meaning, and edge cases, mapping them to the specific decision horizon.
@@ -96,3 +100,4 @@ To accelerate delivery, the Orchestrator coordinates background writer subagents
     1. Every KPI has a valid data source mapping.
     2. Every visual traces back to an active engine and metric.
     3. Cross-horizon links to prior completed builds are verified and recorded in the traceability matrix.
+    4. For Gate 3 builds, the data simulation specification (`16-data-simulation-specification.md`) maps all 6 registered problems, defines mathematical simulation formulas, and has valid trace paths to KPIs and Engines.
